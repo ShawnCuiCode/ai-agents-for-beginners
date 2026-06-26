@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>企业AI知识库管理规范 v2.0</title></head>
+<body>
+
+<nav id="navbar">导航栏 | 首页 | 关于 | 联系（此区域应被过滤）</nav>
+
+<main>
+  <h1>企业AI知识库管理规范</h1>
+  <p>版本：v2.0 | 发布日期：2025-06-01 | 密级：内部</p>
+
+  <h2>第一章 总则</h2>
+  <p>为规范本行人工智能知识库的建设、维护与使用，保障知识资产的安全性和有效性，特制定本规范。</p>
+  <p>本规范适用于全行各部门涉及AI知识库的相关工作，包括文档入库、版本管理、权限控制和检索使用。</p>
+
+  <h2>第二章 文档分类与处理标准</h2>
+  <h3>2.1 文档分类</h3>
+  <p>根据文档来源和格式，分为以下四类，各类采用不同的处理策略：</p>
+
+  <table border="1">
+    <thead>
+      <tr><th>文档类型</th><th>来源格式</th><th>处理工具</th><th>更新周期</th><th>优先级</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>产品说明书</td><td>PDF（数字版）</td><td>pdfplumber</td><td>季度</td><td>高</td></tr>
+      <tr><td>监管公告</td><td>PDF（扫描版）</td><td>Tesseract OCR</td><td>实时</td><td>极高</td></tr>
+      <tr><td>内部Wiki</td><td>HTML</td><td>trafilatura</td><td>实时</td><td>高</td></tr>
+      <tr><td>研究报告</td><td>PDF（数字版）</td><td>pdfplumber+视觉</td><td>月度</td><td>中</td></tr>
+      <tr><td>操作手册</td><td>Word/PDF</td><td>python-docx</td><td>年度</td><td>低</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 质量标准</h3>
+  <p>所有入库文档须满足：文字可读性不低于95%、表格结构完整、图片分辨率不低于150DPI。</p>
+
+  <h2>第三章 安全与权限管理</h2>
+  <h3>3.1 数据分级</h3>
+  <p>知识库内容按照数据密级分为三个级别：公开、内部、机密。不同级别的内容存储在独立的Collection中，通过RBAC机制控制访问权限。</p>
+
+  <h3>3.2 审计要求</h3>
+  <p>所有检索操作均须记录操作日志，包含：查询时间、用户ID、查询内容（脱敏）、返回文档来源。日志保留期限不少于12个月。</p>
+
+  <h2>第四章 向量数据库技术规范</h2>
+  <p>本行统一采用ChromaDB作为向量数据库，部署于行内私有云，禁止使用外部SaaS服务。</p>
+
+  <table border="1">
+    <thead>
+      <tr><th>Collection名称</th><th>内容类型</th><th>嵌入模型</th><th>chunk_size</th><th>overlap</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>cs_text</td><td>客服文本</td><td>BGE-M3</td><td>600</td><td>100</td></tr>
+      <tr><td>cs_table</td><td>客服表格</td><td>BGE-M3</td><td>整表</td><td>0</td></tr>
+      <tr><td>compliance_text</td><td>合规文本</td><td>BGE-M3</td><td>400</td><td>80</td></tr>
+      <tr><td>research</td><td>研究报告</td><td>text-embedding-3</td><td>1000</td><td>200</td></tr>
+    </tbody>
+  </table>
+
+  <h2>第五章 附则</h2>
+  <p>本规范自发布之日起执行，由金融科技部负责解释和修订。如与其他规范冲突，以本规范为准。</p>
+</main>
+
+<footer>版权所有 © 2025 本行金融科技部（此区域应被过滤）</footer>
+
+</body>
+</html>
